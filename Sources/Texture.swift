@@ -10,7 +10,7 @@ public enum TextureType {
 
 /// Represents a loaded texture
 public final class Texture {
-    let handle: bgfx_texture_handle_t
+    public let handle: bgfx_texture_handle_t
 	
 	public let info: TextureInfo
 
