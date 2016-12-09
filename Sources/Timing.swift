@@ -18,6 +18,21 @@
         }()
     }
 #else
+
+import Glibc
+
+public class Timing {
+        
+        public static var counter: UInt64 {
+            var tm = timeval()
+            gettimeofday(&tm, nil)
+            return UInt64(tm.tv_sec * 1_000_000 + tm.tv_usec) * 1_000
+        }
+        
+        public static let frequency: UInt64 = {
+            return 0
+        }()
+    }
 #endif
 
 public struct Counter {
