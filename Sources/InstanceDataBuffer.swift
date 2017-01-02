@@ -35,6 +35,6 @@ public class InstanceDataBuffer {
     /// - returns: `true` if there is space available to allocate the buffer
     ///
     public static func checkAvailableSpace(count: UInt32, stride: UInt16) -> Bool {
-        return bgfx_check_avail_instance_data_buffer(count, stride)
+        return bgfx_get_avail_instance_data_buffer(count, stride)
     }
 }

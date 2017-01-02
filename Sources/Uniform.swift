@@ -4,6 +4,20 @@
 
 import Cbgfx
 
+public struct UniformInfo {
+    public let name: String
+    public let type: UniformType
+    public let num: Int
+    
+    internal init(_ info: bgfx_uniform_info_t) {
+        name = String(cString: UnsafeRawPointer([info.name]).assumingMemoryBound(to: CChar.self))
+        type = UniformType(rawValue: unsafeBitCast(info.type, to: UInt32.self))!
+        num  = Int(info.num)
+    }
+}
+
+// TODO: Split this into UniformAutorelease (class) and Uniform (struct)
+
 /// Represents a shader uniform
 ///
 /// - remark:
@@ -22,7 +36,7 @@ import Cbgfx
 /// - `u_modelViewProj mat4` - concatenated model view projection matrix.
 /// - `u_alphaRef float` - alpha reference value for alpha test.
 ///
-public class Uniform {
+public final class Uniform {
     let handle: bgfx_uniform_handle_t
     
     init(handle: bgfx_uniform_handle_t) {
@@ -41,5 +55,21 @@ public class Uniform {
     
     deinit {
         bgfx_destroy_uniform(handle)
+    }
+    
+    public var info: UniformInfo {
+        var bgfxInfo = bgfx_uniform_info()
+        bgfx_get_uniform_info(handle, &bgfxInfo)
+        return UniformInfo(bgfxInfo)
+    }
+}
+
+extension Uniform: Hashable {
+    public var hashValue: Int {
+        return handle.idx.hashValue
+    }
+    
+    public static func ==(lhs: Uniform, rhs: Uniform) -> Bool {
+        return lhs.handle.idx == rhs.handle.idx
     }
 }

@@ -31,6 +31,6 @@ public struct TransientIndexBuffer {
     ///
     /// - returns: `true` if there is space available for the given number of indices
     public static func checkAvailableSpace(count: UInt32) -> Bool {
-        return bgfx_check_avail_transient_index_buffer(count)
+        return bgfx_get_avail_transient_index_buffer(count)
     }
 }

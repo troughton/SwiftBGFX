@@ -20,7 +20,7 @@ public class bgfx {
     /// - returns: `true` if there is sufficient space for both vertex and index buffers
     public static func checkAvailableTransientBufferSpace(vertexCount: UInt32, layout: VertexLayout,
                                                           indexCount: UInt32) -> Bool {
-        return bgfx_check_avail_transient_buffers(vertexCount, &layout.handle, indexCount)
+        return bgfx_get_avail_transient_buffers(vertexCount, &layout.handle, indexCount)
     }
 
     /// Attempts to allocate both a transient vertex buffer and index buffer
