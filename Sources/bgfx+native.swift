@@ -329,6 +329,18 @@ extension bgfx {
     }
 
     // MARK: Draw Transform
+    
+    /// Set model matrices for draw primitive. If it is not called model will be
+    /// rendered with identity model matrix
+    ///
+    /// - returns: index into matrix cache in case the same model matrix has to be
+    ///            used for additional draw primitive calls
+    ///
+    @discardableResult
+    public static func setTransform(_ matrices: [Matrix4x4f]) -> UInt32 {
+        var mtx = matrices
+        return bgfx_set_transform(&mtx, UInt16(matrices.count))
+    }
 
     /// Set model matrix for draw primitive. If it is not called model will be
     /// rendered with identity model matrix
@@ -485,6 +497,12 @@ extension bgfx {
         bgfx_set_instance_data_from_dynamic_vertex_buffer(buf.handle, firstVertex, count)
     }
 
+    /// Sets the value of a uniform parameter
+    public static func setUniform<T>(_ uniform: Uniform, value: T, count: UInt16 = 1) {
+        var ptr = value
+        bgfx_set_uniform(uniform.handle, &ptr, count)
+    }
+    
     /// Sets the value of a uniform parameter
     public static func setUniform(_ uniform: Uniform, value: Vector4f) {
         var ptr = value
