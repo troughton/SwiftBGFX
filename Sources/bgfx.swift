@@ -9,19 +9,19 @@ import SwiftMath
 public class bgfx {
     
     /// The required API version of bgfx
-    public static let APIVersion = 28
+    public static let APIVersion = 34
 
-    /// Checks for available space to allocate transient index and vertex buffers
-    ///
-    /// - parameter vertexCount: The number of vertices to allocate
-    /// - parameter layout: The layout of each vertex
-    /// - parameter indexCount: The number of indices to allocate
-    ///
-    /// - returns: `true` if there is sufficient space for both vertex and index buffers
-    public static func checkAvailableTransientBufferSpace(vertexCount: UInt32, layout: VertexLayout,
-                                                          indexCount: UInt32) -> Bool {
-        return bgfx_get_avail_transient_buffers(vertexCount, &layout.handle, indexCount)
-    }
+//    /// Checks for available space to allocate transient index and vertex buffers
+//    ///
+//    /// - parameter vertexCount: The number of vertices to allocate
+//    /// - parameter layout: The layout of each vertex
+//    /// - parameter indexCount: The number of indices to allocate
+//    ///
+//    /// - returns: `true` if there is sufficient space for both vertex and index buffers
+//    public static func checkAvailableTransientBufferSpace(vertexCount: UInt32, layout: VertexLayout,
+//                                                          indexCount: UInt32) -> Bool {
+//        return bgfx_get_avail_transient_buffers(vertexCount, &layout.handle, indexCount)
+//    }
 
     /// Attempts to allocate both a transient vertex buffer and index buffer
     ///
